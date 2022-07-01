@@ -1,5 +1,10 @@
+// Declaration URL de l'api, tableau des produits
+
 let products = [];
 let url = "http://localhost:3000/api/products"
+
+
+// Fetch de l'api et remplissage du tableau products avec la promise
 
 const fetchProduct = async () => {
     await fetch (url)
@@ -9,6 +14,9 @@ const fetchProduct = async () => {
         console.log(products);
     })
 };
+
+
+// Affichage des "product" dans le tableau "products" a l'aide du .map
 
 const listProducts = async () => {
     await fetchProduct();
