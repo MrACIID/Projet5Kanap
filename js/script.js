@@ -1,7 +1,9 @@
 let products = [];
 
+let url = "http://localhost:3000/api/products"
+
 const fetchProduct = async () => {
-    await fetch("http://localhost:3000/api/products")
+    await fetch (url)
     .then((res) => res.json())
     .then((promise) => { 
         products = promise;
@@ -22,7 +24,7 @@ const listProducts = async () => {
   </a>
     `
 
-    );
+    ).join('');
 };
 
 listProducts()
