@@ -22,7 +22,7 @@ const listProducts = async () => {
     await fetchProduct();
 
     document.getElementById("items").innerHTML += products.map(
-    (product) => ` <a href="${product._id}">
+    (product) => ` <a href="product.html?id=${product._id}">
     <article>
       <img src="${product.imageUrl}" alt="${product.altTxt}">
       <h3 class="productName">${product.name}</h3>
@@ -31,7 +31,9 @@ const listProducts = async () => {
   </a>
     `
 
-    ).join('');
+    ).join('');  
 };
+
+
 
 listProducts()
