@@ -22,7 +22,8 @@ const listProducts = async () => {
    document.getElementsByClassName("item__img")[0].innerHTML += ` <img src="${productInfo.imageUrl}" alt="${productInfo.altTxt}"> `
    document.getElementById("title").innerHTML += ` ${productInfo.name}`
    document.getElementById("description").innerHTML += ` ${productInfo.description} `
-   document.getElementById("colors").innerHTML += ` <option value="${productInfo.colors}">${productInfo.colors}</option> `
+   document.getElementById("price").innerHTML += `${productInfo.price}`
+   document.getElementById("colors").innerHTML += ` <option value="${productInfo.colors}">${productInfo.colors}</option>`
     
 };
 
