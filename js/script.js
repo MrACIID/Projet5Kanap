@@ -13,6 +13,7 @@ const fetchProduct = async () => {
         products = promise;
         console.log(products);
     })
+        
 };
 
 

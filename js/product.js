@@ -24,12 +24,23 @@ const fetchProduct = async () => {
 const listProducts = async () => {
     await fetchProduct();
 
-   document.getElementsByClassName("item__img")[0].innerHTML += ` <img src="${productInfo.imageUrl}" alt="${productInfo.altTxt}"> `
-   document.getElementById("title").innerHTML += ` ${productInfo.name}`
-   document.getElementById("description").innerHTML += ` ${productInfo.description} `
-   document.getElementById("price").innerHTML += `${productInfo.price}`
-   document.getElementById("colors").innerHTML += ` <option value="${productInfo.colors}">${productInfo.colors}</option>`
-    
+   document.title = `${productInfo.name}`;
+   document.getElementsByClassName("item__img")[0].innerHTML += ` <img src="${productInfo.imageUrl}" alt="${productInfo.altTxt}"> `;
+   document.getElementById("title").innerHTML += ` ${productInfo.name}`;
+   document.getElementById("description").innerHTML += ` ${productInfo.description} `;
+   document.getElementById("price").innerHTML += `${productInfo.price}`;
+
+   let colorsOption = document.getElementById("colors");
+
+   productInfo.colors.forEach((colors) => { 
+
+       let singleColor = document.createElement("option");
+       singleColor.innerHTML = `${colors}`;
+       singleColor.value = `${colors}`;
+       colorsOption.appendChild(singleColor);
+       
+   });
+
 };
 
 
