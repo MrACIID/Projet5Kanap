@@ -40,9 +40,28 @@ const listProducts = async () => {
        colorsOption.appendChild(singleColor);
        
    });
+   
+//Ajout produit au panier/local storage
+
+const addtoCart = document.getElementById("addToCart")
+
+addtoCart.addEventListener('click',(event) => {
+    event.preventDefault();
+    
+let localstorageProducts = JSON.parse (localStorage.getItem("produit"));
+
+if(localstorageProducts){
+    localstorageProducts.push(productInfo);
+    localStorage.setItem("produit", JSON.stringify(localstorageProducts));
+}
+else{localstorageProducts = [];
+    localstorageProducts.push(productInfo);
+    localStorage.setItem("produit", JSON.stringify(localstorageProducts));
+    console.log(localstorageProducts);
+}
+    
+});
 
 };
 
-
-
-listProducts()
+listProducts();
