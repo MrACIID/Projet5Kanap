@@ -30,6 +30,7 @@ const listProducts = async () => {
    document.getElementById("description").innerHTML += ` ${productInfo.description} `;
    document.getElementById("price").innerHTML += `${productInfo.price}`;
 
+    //Création d'options pour chaque couleurs disponible 
    let colorsOption = document.getElementById("colors");
 
    productInfo.colors.forEach((colors) => { 
@@ -41,27 +42,36 @@ const listProducts = async () => {
        
    });
    
-//Ajout produit au panier/local storage
 
-const addtoCart = document.getElementById("addToCart")
+//local storage
 
-addtoCart.addEventListener('click',(event) => {
-    event.preventDefault();
-    
+        //Event listener sur le bouton ajout panier
+
+const additemtoCart = document.getElementById("addToCart")
+additemtoCart.addEventListener('click',(event) => {
+
+        //identification de la couleur choisi
+
+let choosedOption = document.getElementById("colors").value;
+console.log(choosedOption);
+
+         //Envoi des produits dans le local storage
+
 let localstorageProducts = JSON.parse (localStorage.getItem("produit"));
 
 if(localstorageProducts){
-    localstorageProducts.push(productInfo);
+    localstorageProducts.push([id,choosedOption]);
     localStorage.setItem("produit", JSON.stringify(localstorageProducts));
 }
 else{localstorageProducts = [];
-    localstorageProducts.push(productInfo);
+    localstorageProducts.push([id,choosedOption]);
     localStorage.setItem("produit", JSON.stringify(localstorageProducts));
     console.log(localstorageProducts);
 }
-    
+ 
 });
 
 };
+
 
 listProducts();
