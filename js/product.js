@@ -57,15 +57,15 @@ console.log(choosedOption);
 
          //Envoi des produits dans le local storage
 
-let localstorageProducts = JSON.parse (localStorage.getItem("produit"));
+let localstorageProducts = JSON.parse (localStorage.getItem("panier"));
 
 if(localstorageProducts){
     localstorageProducts.push([id,choosedOption]);
-    localStorage.setItem("produit", JSON.stringify(localstorageProducts));
+    localStorage.setItem("panier", JSON.stringify(localstorageProducts));
 }
 else{localstorageProducts = [];
     localstorageProducts.push([id,choosedOption]);
-    localStorage.setItem("produit", JSON.stringify(localstorageProducts));
+    localStorage.setItem("panier", JSON.stringify(localstorageProducts));
     console.log(localstorageProducts);
 }
  
