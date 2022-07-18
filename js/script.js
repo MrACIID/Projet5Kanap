@@ -11,7 +11,6 @@ const fetchProduct = async () => {
     .then((res) => res.json())
     .then((promise) => { 
         products = promise;
-        console.log(products);
     })
         
 };

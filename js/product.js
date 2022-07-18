@@ -6,7 +6,7 @@ let id = url.searchParams.get("id");
 let productInfo = [];
 let apiUrl = `http://localhost:3000/api/products/${id}`
 
-console.log(id)
+
 
 // Fetch de l'api sur l'id du produit et remplissage du tableau productInfo avec la promise
 
@@ -15,7 +15,6 @@ const fetchProduct = async () => {
     .then((res) => res.json())
     .then((promise) => { 
         productInfo = promise;
-        console.log(productInfo);
     })
 };
 
@@ -50,23 +49,31 @@ const listProducts = async () => {
 const additemtoCart = document.getElementById("addToCart")
 additemtoCart.addEventListener('click',(event) => {
 
-        //identification de la couleur choisi
+        //identification des choix, couleur quantité et id du produit 
 
 let choosedOption = document.getElementById("colors").value;
-console.log(choosedOption);
+let choosedQuantity = document.getElementById("quantity").value;
+
+const choosedOptionAndQuantity = Object.assign({},  {
+id: `${id}`,   
+colors: `${choosedOption}` , 
+quantity: `${choosedQuantity}`,
+
+});
 
          //Envoi des produits dans le local storage
 
 let localstorageProducts = JSON.parse (localStorage.getItem("panier"));
 
 if(localstorageProducts){
-    localstorageProducts.push([id,choosedOption]);
+    localstorageProducts.push([choosedOptionAndQuantity]);
     localStorage.setItem("panier", JSON.stringify(localstorageProducts));
 }
 else{localstorageProducts = [];
-    localstorageProducts.push([id,choosedOption]);
+    localstorageProducts.push([choosedOptionAndQuantity]);
     localStorage.setItem("panier", JSON.stringify(localstorageProducts));
     console.log(localstorageProducts);
+    
 }
  
 });
@@ -75,3 +82,4 @@ else{localstorageProducts = [];
 
 
 listProducts();
+
