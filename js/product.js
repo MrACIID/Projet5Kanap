@@ -52,34 +52,58 @@ additemtoCart.addEventListener('click',(event) => {
         //identification des choix, couleur quantité et id du produit 
 
 let choosedOption = document.getElementById("colors").value;
-let choosedQuantity = document.getElementById("quantity").value;
+let choosedQuantity = parseInt(document.getElementById("quantity").value);
 
 const choosedOptionAndQuantity = Object.assign({},  {
 id: `${id}`,   
 colors: `${choosedOption}` , 
-quantity: `${choosedQuantity}`,
+quantity: parseInt(`${choosedQuantity}`),
 
 });
 
-         //Envoi des produits dans le local storage
+         //Envoi des produits dans le local storage si panier vide 
 
-let localstorageProducts = JSON.parse (localStorage.getItem("panier"));
+         if (localstorageProducts == null) {
+            localstorageProducts = [];
+            localstorageProducts.push(choosedOptionAndQuantity);
+            localStorage.setItem("panier", JSON.stringify(localstorageProducts));
+        }
 
-if(localstorageProducts){
-    localstorageProducts.push([choosedOptionAndQuantity]);
-    localStorage.setItem("panier", JSON.stringify(localstorageProducts));
-}
-else{localstorageProducts = [];
-    localstorageProducts.push([choosedOptionAndQuantity]);
-    localStorage.setItem("panier", JSON.stringify(localstorageProducts));
-    console.log(localstorageProducts);
-    
-}
- 
-});
+        //Addition/incrémentation de la QUANTITE lors de l'ajout d'un item identique deja présent dans le panier
 
-};
+        else if (localstorageProducts != null ) {
+          for (i = 0; i < localstorageProducts.length; i++) {
+            if (
+                localstorageProducts[i].id == productInfo._id && 
+                localstorageProducts[i].colors == choosedOption
+                ){
+                return (
+                    localstorageProducts[i].quantity += choosedQuantity,   
+                    localStorage.setItem("panier", JSON.stringify(localstorageProducts)),
+                    (localstorageProducts = JSON.parse(localStorage.getItem("panier")))
+                );
+              }
+            }
+
+        //Si l'item n'est pas un dupliqué alors on l'ajoute au panier en tant que nouvel item.
+
+            for (i = 0; i < localstorageProducts.length; i++) {
+                if (
+                  (localstorageProducts[i].id == productInfo._id &&
+                    localstorageProducts[i].colors != choosedOption) ||
+                    localstorageProducts[i].id != productInfo._id
+                ) {
+                  return (
+                    localstorageProducts.push(choosedOptionAndQuantity),
+                    localStorage.setItem("panier", JSON.stringify(localstorageProducts)),
+                    (localstorageProducts = JSON.parse(localStorage.getItem("panier")))
+                  );
+                }
+            }
+          }   
+        });
+        return (localstorageProducts = JSON.parse(localStorage.getItem("panier")));
+        };
 
 
 listProducts();
-
