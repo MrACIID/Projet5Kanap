@@ -54,6 +54,14 @@ additemtoCart.addEventListener('click',(event) => {
 let choosedOption = document.getElementById("colors").value;
 let choosedQuantity = parseInt(document.getElementById("quantity").value);
 
+if ( choosedOption ===  "") {
+  alert("choisissez une couleur")
+};
+if ( choosedQuantity == 0) {
+  alert("choisissez une quantité")
+};
+
+
 const choosedOptionAndQuantity = Object.assign({},  {
 id: `${id}`,   
 colors: `${choosedOption}` , 
