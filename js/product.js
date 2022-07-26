@@ -71,7 +71,7 @@ quantity: parseInt(`${choosedQuantity}`),
 
          //Envoi des produits dans le local storage si panier vide 
 
-         if (localstorageProducts == null) {
+         if (localstorageProducts == null && (choosedOption > "" && choosedQuantity > 0)){
             localstorageProducts = [];
             localstorageProducts.push(choosedOptionAndQuantity);
             localStorage.setItem("panier", JSON.stringify(localstorageProducts));
@@ -79,7 +79,7 @@ quantity: parseInt(`${choosedQuantity}`),
 
         //Addition/incrémentation de la QUANTITE lors de l'ajout d'un item identique deja présent dans le panier
 
-        else if (localstorageProducts != null ) {
+        else if (localstorageProducts != null && (choosedOption > "" && choosedQuantity > 0)) {
           for (i = 0; i < localstorageProducts.length; i++) {
             if (
                 localstorageProducts[i].id == productInfo._id && 
