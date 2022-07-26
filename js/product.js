@@ -52,7 +52,7 @@ additemtoCart.addEventListener('click',(event) => {
         //identification des choix, couleur quantité et id du produit 
 
 let choosedOption = document.getElementById("colors").value;
-let choosedQuantity = parseInt(document.getElementById("quantity").value);
+let choosedQuantity = parseInt(document.getElementById("quantity").value); 
 
 if ( choosedOption ===  "") {
   alert("choisissez une couleur")
