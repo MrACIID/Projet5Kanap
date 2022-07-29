@@ -6,7 +6,9 @@ let apiUrl = "http://localhost:3000/api/products/"
 const showCart = async () => {      
     if(localstorageProducts){
        await localstorageProducts;
-       document.getElementById("cart__items").innerHTML = localstorageProducts.map((panier) =>  `
+       document.getElementById("cart__items").innerHTML = localstorageProducts.map((panier) => 
+
+       `
        <article class="cart__item" data-id="${panier.id}" data-color="${panier.colors}">
                 <div class="cart__item__img">
                   <img src="" alt="Photographie d'un canapé">
@@ -15,7 +17,7 @@ const showCart = async () => {
                   <div class="cart__item__content__description">
                     <h2>""</h2>
                     <p>${panier.colors}</p>
-                    <p>${(apiUrl+panier.id)}</p>
+                    <p>${(apiUrl+panier.id).price}</p>
                   </div>
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">

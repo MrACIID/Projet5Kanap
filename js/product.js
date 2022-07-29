@@ -54,12 +54,23 @@ additemtoCart.addEventListener('click',(event) => {
 let choosedOption = document.getElementById("colors").value;
 let choosedQuantity = parseInt(document.getElementById("quantity").value); 
 
-if ( choosedOption ===  "") {
-  alert("choisissez une couleur")
-};
-if ( choosedQuantity == 0) {
-  alert("choisissez une quantité")
-};
+
+function alertChoice() {
+  if ( choosedOption ===  "" && choosedQuantity == 0) {
+  alert("Choisissez une couleur et une quantité")
+}
+
+else if ( choosedOption ===  "") {
+  alert("Choisissez une couleur")
+}
+
+else if ( choosedQuantity ==  0) {
+  alert("Choisissez une couleur")
+}
+}
+alertChoice()
+
+
 
 
 const choosedOptionAndQuantity = Object.assign({},  {
