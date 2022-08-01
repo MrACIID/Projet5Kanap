@@ -65,7 +65,7 @@ else if ( choosedOption ===  "") {
 }
 
 else if ( choosedQuantity ==  0) {
-  alert("Choisissez une couleur")
+  alert("Choisissez une quantité")
 }
 }
 alertChoice()
