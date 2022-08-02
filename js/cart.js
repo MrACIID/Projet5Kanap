@@ -32,7 +32,7 @@ const showCart = async () => {
                   <div class="cart__item__content__description">
                     <h2>${productInfo.name}</h2>
                     <p>${colorProd}</p>
-                    <p>${productInfo.price}€</p>
+                    <p>${(productInfo.price)*quantityProd}€</p>
                   </div>
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
@@ -48,9 +48,8 @@ const showCart = async () => {
     }
 
     showCart();
+
 }
-
-
 
 
 
