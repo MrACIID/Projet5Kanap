@@ -3,6 +3,15 @@ let apiUrl = "http://localhost:3000/api/products/"
 let productInfo = []
 
 
+////////////Si panier vide supression de la clé localstorage
+
+if (localstorageProducts.length == 0) {
+  console.log("panier vide");
+  localStorage.removeItem("panier")
+}
+
+////////////Affichage des éléments du panier
+
 for (i = 0; i < localstorageProducts.length; i++) {
   
   let idProd = localstorageProducts[i].id;
@@ -65,8 +74,8 @@ for (let l = 0; l < deleteBtn.length; l++){
 
     //////Selection du produit a supprimer
 
-    let selectedId = localstorageProducts[l].id
-    localstorageProducts = localstorageProducts.filter( el => el.id !== selectedId)
+    let selectedIdAndColor = (localstorageProducts[l].id,localstorageProducts[l].colors);
+    localstorageProducts = localstorageProducts.filter( el => (el.id,el.colors) !== selectedIdAndColor)
         
 
    /////Changement du localstorage et reload de la page
