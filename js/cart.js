@@ -56,13 +56,37 @@ const showCart = async () => {
 </article>  ` 
 
 
+//////////Calcul quantités total du panier
+let totalQuantityCalc = [];
+for (let m = 0; m < localstorageProducts.length; m++){
+  let totalQuantityItems = localstorageProducts[m].quantity;
+  totalQuantityCalc.push(totalQuantityItems)
+
+}
+
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const totalQuantity = totalQuantityCalc.reduce(reducer);
 
 
 
-document.getElementById("totalQuantity").innerHTML += ``
-document.getElementById("totalPrice").innerHTML += ``
+document.getElementById("totalQuantity").innerHTML = `${totalQuantity}`
 
+/////////////Calcul prix total du panier
 
+let lengthPrix = JSON.stringify((productInfo.price)*quantityProd);
+let prixProd = JSON.stringify((productInfo.price)*quantityProd);
+let totalPriceCalc = [];
+
+for (let z = 0; z < lengthPrix.length; z++){ 
+  let totalPriceItems = prixProd[z];
+  totalPriceCalc.push(totalPriceItems)
+  
+}
+
+const totalPrice = totalPriceCalc.reduce(reducer);
+console.log(totalPrice)
+
+document.getElementById("totalPrice").innerHTML += `${totalPrice}`
 
 
 ////////////MISE EN PLACE BOUTON SUPRIMER
@@ -72,7 +96,7 @@ for (let l = 0; l < deleteBtn.length; l++){
   deleteBtn[l].addEventListener("click", (event) => {
     event.preventDefault();
 
-    //////Selection du produit a supprimer
+   //////Selection du produit a supprimer
 
     let selectedIdAndColor = (localstorageProducts[l].id,localstorageProducts[l].colors);
     localstorageProducts = localstorageProducts.filter( el => (el.id,el.colors) !== selectedIdAndColor)
