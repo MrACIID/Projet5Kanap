@@ -1,7 +1,7 @@
 let localstorageProducts = JSON.parse(localStorage.getItem("panier"));
 let apiUrl = "http://localhost:3000/api/products/"
 let productInfo = []
-
+let tabletotalPrice = []
 
 ////////////Si panier vide supression de la clé localstorage
 
@@ -30,7 +30,7 @@ const showCart = async () => {
         .then((data) => 
             productInfo = data)         
        }
-       
+       tabletotalPrice.push((productInfo.price)*quantityProd)
        document.getElementById("cart__items").innerHTML += 
 `
 <article class="cart__item" data-id="${idProd}" data-color="${colorProd}">
@@ -55,13 +55,34 @@ const showCart = async () => {
      </div>
 </article>  ` 
 
+////////////MISE EN PLACE BOUTON SUPRIMER
+
+let deleteBtn = document.querySelectorAll(".deleteItem");
+for (let l = 0; l < deleteBtn.length; l++){
+  deleteBtn[l].addEventListener("click", (event) => {
+    event.preventDefault();
+
+   //////Selection du produit a supprimer
+
+  let selectedIdAndColor = (localstorageProducts[l].id,localstorageProducts[l].colors);
+  localstorageProducts = localstorageProducts.filter( el => (el.id,el.colors) !== selectedIdAndColor)
+        
+
+   /////Changement du localstorage et reload de la page
+   localStorage.setItem("panier" , JSON.stringify(localstorageProducts));
+   window.location.href = "cart.html";
+
+  })
+}
+
+
 
 //////////Calcul quantités total du panier
+
 let totalQuantityCalc = [];
 for (let m = 0; m < localstorageProducts.length; m++){
   let totalQuantityItems = localstorageProducts[m].quantity;
   totalQuantityCalc.push(totalQuantityItems)
-
 }
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -73,51 +94,20 @@ document.getElementById("totalQuantity").innerHTML = `${totalQuantity}`
 
 /////////////Calcul prix total du panier
 
-let lengthPrix = JSON.stringify((productInfo.price)*quantityProd);
-let prixProd = JSON.stringify((productInfo.price)*quantityProd);
-let totalPriceCalc = [];
 
-for (let z = 0; z < lengthPrix.length; z++){ 
-  let totalPriceItems = prixProd[z];
-  totalPriceCalc.push(totalPriceItems)
-  
-}
+console.log(tabletotalPrice)
 
-const totalPrice = totalPriceCalc.reduce(reducer);
+const totalPrice = tabletotalPrice.reduce(reducer)
+document.getElementById("totalPrice").innerHTML = `${totalPrice}`
+
 console.log(totalPrice)
 
-document.getElementById("totalPrice").innerHTML += `${totalPrice}`
-
-
-////////////MISE EN PLACE BOUTON SUPRIMER
-
-let deleteBtn = document.querySelectorAll(".deleteItem");
-for (let l = 0; l < deleteBtn.length; l++){
-  deleteBtn[l].addEventListener("click", (event) => {
-    event.preventDefault();
-
-   //////Selection du produit a supprimer
-
-    let selectedIdAndColor = (localstorageProducts[l].id,localstorageProducts[l].colors);
-    localstorageProducts = localstorageProducts.filter( el => (el.id,el.colors) !== selectedIdAndColor)
-        
-
-   /////Changement du localstorage et reload de la page
-   localStorage.setItem("panier" , JSON.stringify(localstorageProducts));
-   window.location.href = "cart.html";
-
-  })
-
-
 }
-
-    }
 
     showCart();
 
-
-    
 };
 
+    
 
 
