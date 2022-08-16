@@ -2,7 +2,7 @@ let localstorageProducts = JSON.parse(localStorage.getItem("panier"));
 let apiUrl = "http://localhost:3000/api/products/"
 let productInfo = []
 let tabletotalPrice = []
-
+let tableQ = []
 ////////////Si panier vide supression de la clé localstorage
 
 if (localstorageProducts.length == 0) {
@@ -17,9 +17,8 @@ for (i = 0; i < localstorageProducts.length; i++) {
   let idProd = localstorageProducts[i].id;
   let colorProd = localstorageProducts[i].colors;
   let quantityProd = localstorageProducts[i].quantity;
-  console.log(idProd)
   let newApiUrl = apiUrl+idProd
-  console.log(newApiUrl)
+ 
 
 
 const showCart = async () => {      
@@ -55,6 +54,7 @@ const showCart = async () => {
      </div>
 </article>  ` 
 
+  
 ////////////MISE EN PLACE BOUTON SUPRIMER
 
 let deleteBtn = document.querySelectorAll(".deleteItem");
@@ -63,7 +63,7 @@ for (let l = 0; l < deleteBtn.length; l++){
     event.preventDefault();
 
    //////Selection du produit a supprimer
-
+   
   let selectedIdAndColor = (localstorageProducts[l].id,localstorageProducts[l].colors);
   localstorageProducts = localstorageProducts.filter( el => (el.id,el.colors) !== selectedIdAndColor)
         
@@ -73,10 +73,27 @@ for (let l = 0; l < deleteBtn.length; l++){
    window.location.href = "cart.html";
 
   })
+} 
+
+////////////CHANGEMENT QUANTITE
+
+let quantityLength = document.querySelectorAll(".itemQuantity")
+
+for (let z = 0; z < quantityLength.length; z++){
+  quantityLength[z].addEventListener("change",(event) => {
+    let prod = localStorage.getItem("panier");
+    prod = JSON.parse(prod);
+
+   prod.map(item => {
+     item.quantity = event.target.value;
+   });
+ 
+   localStorage.setItem("panier" , JSON.stringify(prod));
+})
+
 }
 
-
-
+  
 //////////Calcul quantités total du panier
 
 let totalQuantityCalc = [];
@@ -88,23 +105,20 @@ for (let m = 0; m < localstorageProducts.length; m++){
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const totalQuantity = totalQuantityCalc.reduce(reducer);
 
-
-
 document.getElementById("totalQuantity").innerHTML = `${totalQuantity}`
 
 /////////////Calcul prix total du panier
 
-
-console.log(tabletotalPrice)
-
 const totalPrice = tabletotalPrice.reduce(reducer)
 document.getElementById("totalPrice").innerHTML = `${totalPrice}`
 
-console.log(totalPrice)
 
 }
 
     showCart();
+
+   
+      
 
 };
 
