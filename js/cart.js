@@ -2,13 +2,14 @@ let localstorageProducts = JSON.parse(localStorage.getItem("panier"));
 let apiUrl = "http://localhost:3000/api/products/"
 let productInfo = []
 let tabletotalPrice = []
-let tableQ = []
+
 ////////////Si panier vide supression de la clé localstorage
 
 if (localstorageProducts.length == 0) {
-  console.log("panier vide");
+  alert("panier vide")
   localStorage.removeItem("panier")
 }
+
 
 ////////////Affichage des éléments du panier
 
@@ -63,22 +64,22 @@ for (let l = 0; l < deleteBtn.length; l++){
     event.preventDefault();
 
    //////Selection du produit a supprimer
-   
-  let selectedIdAndColor = (localstorageProducts[l].id,localstorageProducts[l].colors);
-  localstorageProducts = localstorageProducts.filter( el => (el.id,el.colors) !== selectedIdAndColor)
-        
+
+  let selectedIdAndColor = (localstorageProducts[l].colors + localstorageProducts[l].id );
+  console.log(selectedIdAndColor)
+  localstorageProducts = localstorageProducts.filter( el => ( el.colors + el.id ) !== selectedIdAndColor)
+
 
    /////Changement du localstorage et reload de la page
    localStorage.setItem("panier" , JSON.stringify(localstorageProducts));
    window.location.href = "cart.html";
 
   })
-} 
+}
 
 ////////////CHANGEMENT QUANTITE
 
 let quantityLength = document.querySelectorAll(".itemQuantity")
-
 for (let z = 0; z < quantityLength.length; z++){
   quantityLength[z].addEventListener("change",(event) => {
     let prod = localStorage.getItem("panier");
@@ -98,7 +99,7 @@ for (let z = 0; z < quantityLength.length; z++){
 
 let totalQuantityCalc = [];
 for (let m = 0; m < localstorageProducts.length; m++){
-  let totalQuantityItems = localstorageProducts[m].quantity;
+  let totalQuantityItems = parseInt(localstorageProducts[m].quantity);
   totalQuantityCalc.push(totalQuantityItems)
 }
 
