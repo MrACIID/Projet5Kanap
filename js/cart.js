@@ -66,7 +66,6 @@ for (let l = 0; l < deleteBtn.length; l++){
    //////Selection du produit a supprimer
 
   let selectedIdAndColor = (localstorageProducts[l].colors + localstorageProducts[l].id );
-  console.log(selectedIdAndColor)
   localstorageProducts = localstorageProducts.filter( el => ( el.colors + el.id ) !== selectedIdAndColor)
 
 
@@ -80,19 +79,24 @@ for (let l = 0; l < deleteBtn.length; l++){
 ////////////CHANGEMENT QUANTITE
 
 let quantityLength = document.querySelectorAll(".itemQuantity")
-for (let z = 0; z < quantityLength.length; z++){
-  quantityLength[z].addEventListener("change",(event) => {
-    let prod = localStorage.getItem("panier");
-    prod = JSON.parse(prod);
 
-   prod.map(item => {
-     item.quantity = event.target.value;
-   });
- 
-   localStorage.setItem("panier" , JSON.stringify(prod));
+quantityLength.forEach((product) => {
+  let prodInfo = product.closest("[data-id]")
+  let prodId = prodInfo.getAttribute("data-id")
+  let prodColor = prodInfo.getAttribute("data-color")
+
+  product.addEventListener("change",(event) => {
+    
+    for (z=0; z < localstorageProducts.length; z++){
+      if (localstorageProducts[z].id == prodId && localstorageProducts[z].colors == prodColor){
+        return localstorageProducts[z].quantity = event.target.value,
+        console.log("Nouvelle quantité"),localStorage.setItem("panier" , JSON.stringify(localstorageProducts));
+      }
+    }
+  })
 })
 
-}
+
 
   
 //////////Calcul quantités total du panier
