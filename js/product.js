@@ -22,7 +22,6 @@ const fetchProduct = async () => {
 
 const listProducts = async () => {
     await fetchProduct();
-
    document.title = `${productInfo.name}`;
    document.getElementsByClassName("item__img")[0].innerHTML += ` <img src="${productInfo.imageUrl}" alt="${productInfo.altTxt}"> `;
    document.getElementById("title").innerHTML += ` ${productInfo.name}`;

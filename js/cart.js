@@ -5,7 +5,7 @@ let tabletotalPrice = []
 
 ////////////Si panier vide supression de la clé localstorage
 
-if (localstorageProducts.length == 0) {
+if (localstorageProducts == null || localstorageProducts.length == 0) {
   alert("panier vide")
   localStorage.removeItem("panier")
 }
@@ -141,7 +141,7 @@ let submit = document.getElementById("order")
 
 let valuefirstName, valuelastName, valueAddress, valueCity, valueEmail;
 
-  // VALIDATION PRENOM
+  // validation du prenom
 
 firstName.addEventListener("input",function (event) {
   valuefirstName;
@@ -150,7 +150,7 @@ firstName.addEventListener("input",function (event) {
     valuefirstName = null
   }
   else if (event.target.value.length < 2 || event.target.value.length > 15){
-    firstNameErrorMsg.innerHTML = "Le Prénom doit étre entre 1 et 15 lettres"
+    firstNameErrorMsg.innerHTML = "Le Prénom doit étre entre 2 et 15 lettres"
     valuefirstName = null
   }
   if (event.target.value.match(/^[a-z A-Z]{2,15}$/)){
@@ -165,7 +165,7 @@ firstName.addEventListener("input",function (event) {
     }
 });
 
-  // VALIDATION NOM
+  // validation du nom
 
 lastName.addEventListener("input",function (event) {
   valuelastName;
@@ -174,7 +174,7 @@ lastName.addEventListener("input",function (event) {
     valuelastName = null
   }
   else if (event.target.value.length < 2 || event.target.value.length > 15){
-    lastNameErrorMsg.innerHTML = "Le Nom doit étre entre 1 et 15 lettres"
+    lastNameErrorMsg.innerHTML = "Le Nom doit étre entre 2 et 15 lettres"
     valuelastName = null
   }
   if (event.target.value.match(/^[a-z A-Z]{2,15}$/)){
@@ -189,7 +189,7 @@ lastName.addEventListener("input",function (event) {
     }
 });
 
-   // VALIDATION ADRESSE
+   // validation de l'adresse
 
 
 address.addEventListener("input",function (event) {
@@ -199,7 +199,7 @@ address.addEventListener("input",function (event) {
     valueAddress = null
   }
   else if (event.target.value.length < 2 || event.target.value.length > 35){
-    addressErrorMsg.innerHTML = "Adresse doit étre entre 2 et 35 lettres"
+    addressErrorMsg.innerHTML = "L'Adresse doit étre entre 2 et 35 lettres"
     valueAddress = null
   }
   if (event.target.value.match(/^[a-z A-Z 0-9]{2,35}$/)){
@@ -209,12 +209,12 @@ address.addEventListener("input",function (event) {
   if (!event.target.value.match(/^[a-z A-Z 0-9]{2,35}$/) && 
     event.target.value.length > 2 &&
     event.target.value.length < 35 ) {
-      addressErrorMsg.innerHTML = "Adresse ne doit pas contenir de caractéres spécial, chiffres ou accents"
+      addressErrorMsg.innerHTML = "L'Adresse ne doit pas contenir de caractéres spécial, chiffres ou accents"
       valueAddress = null
     }
 });
 
-  // VALIDATION VILLE
+  // validation de la ville
 
 city.addEventListener("input",function (event) {
   valueCity;
@@ -239,7 +239,7 @@ city.addEventListener("input",function (event) {
 });
 
 
-  // VALIDATION EMAIL
+  // validation de l'email
 
 email.addEventListener("input", function (event){
 if (event.target.value.length == 0){
@@ -260,7 +260,8 @@ if (
 
 });
 
-
+   // envoi formurlaire api au click
+   
 submit.addEventListener("click", function (event) {
   event.preventDefault();
   if (valuefirstName && valuelastName && valueCity && valueAddress && valueCity && valueEmail ){
@@ -269,7 +270,9 @@ submit.addEventListener("click", function (event) {
     totalProd.forEach((prod) => {
     idPanier.push(prod.id)
     });
-    
+
+     // Création de l'objet a envoyer 
+
     const order = {
       contact: {
         firstName: valuefirstName,
@@ -280,7 +283,7 @@ submit.addEventListener("click", function (event) {
       },
       products: idPanier,
     };
-
+     // Envoi de l'objet et insertion de l'id de commande dans la l'url page confirmation
     fetch(apiUrl+"order", {
       method: "POST",
       headers: {"Content-Type":"application/json" },
@@ -290,6 +293,7 @@ submit.addEventListener("click", function (event) {
     .then((promise) => {
       let resApi = promise
       window.location.href = `confirmation.html?id=${resApi.orderId}`
+      localStorage.removeItem("panier")
     });
     
    
@@ -298,3 +302,4 @@ submit.addEventListener("click", function (event) {
     alert ("Veuillez renseigner vos coordonnés")
   }
 });
+
