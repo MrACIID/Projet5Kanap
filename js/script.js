@@ -12,6 +12,9 @@ const fetchProduct = async () => {
     .then((promise) => { 
         products = promise;
     })
+    .catch((err)=> {
+      alert("Erreur, veuillez réessayer plus tard :)")
+    })
         
 };
 

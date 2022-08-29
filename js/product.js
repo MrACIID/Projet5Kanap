@@ -16,6 +16,9 @@ const fetchProduct = async () => {
     .then((promise) => { 
         productInfo = promise;
     })
+    .catch((err)=> {
+      alert("Erreur, veuillez réessayer plus tard :)")
+    })
 };
 
 //Affichage du produit depuis l'HTML
