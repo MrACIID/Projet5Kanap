@@ -88,6 +88,7 @@ quantity: parseInt(`${choosedQuantity}`),
             localstorageProducts = [];
             localstorageProducts.push(choosedOptionAndQuantity);
             localStorage.setItem("panier", JSON.stringify(localstorageProducts));
+            alert("Produit ajouter au panier")
         }
 
         //Addition/incrémentation de la QUANTITE lors de l'ajout d'un item identique deja présent dans le panier
@@ -101,7 +102,8 @@ quantity: parseInt(`${choosedQuantity}`),
                 return (
                     localstorageProducts[i].quantity += choosedQuantity,   
                     localStorage.setItem("panier", JSON.stringify(localstorageProducts)),
-                    (localstorageProducts = JSON.parse(localStorage.getItem("panier")))
+                    (localstorageProducts = JSON.parse(localStorage.getItem("panier"))),
+                    alert("Produit ajouter au panier")
                 );
               }
             }
@@ -117,7 +119,8 @@ quantity: parseInt(`${choosedQuantity}`),
                   return (
                     localstorageProducts.push(choosedOptionAndQuantity),
                     localStorage.setItem("panier", JSON.stringify(localstorageProducts)),
-                    (localstorageProducts = JSON.parse(localStorage.getItem("panier")))
+                    (localstorageProducts = JSON.parse(localStorage.getItem("panier"))),
+                    alert("Produit ajouter au panier")
                   );
                 }
             }
